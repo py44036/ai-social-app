@@ -1,20 +1,10 @@
-<!-- components/header.html -->
-<nav style="background-color: #007bff; padding: 10px;">
-    <a href="/index.html" style="color: white; margin-right: 15px;">Home</a>
-    <a href="/pages/profile.html" style="color: white; margin-right: 15px;">Profile</a>
-    <a href="/pages/messages.html" style="color: white; margin-right: 15px;">Messages</a>
-    <a href="/pages/explore.html" style="color: white; margin-right: 15px;">Explore</a>
-    <a href="/pages/login.html" style="color: white; margin-right: 15px;">Login</a>
-</nav> document.addEventListener("DOMContentLoaded", function () {
-    fetch("/components/header.html")
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("components/header.html")
         .then(response => response.text())
         .then(data => {
-            document.getElementById("header").innerHTML = data;
+          document.getElementById("header").innerHTML = data;
         })
         .catch(error => console.error("Error loading header:", error));
-});<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Social App</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
+    });
+  </script>
