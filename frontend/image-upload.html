@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image - AI Social App</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Upload Your Image</h1>
+    </header>
+
+    <main>
+      <form id="uploadForm" action="http://localhost:3000/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="photo" accept="image/*" required>
+            <button type="submit">Upload</button>
+        </form>
+
+        <div id="message"></div>
+        <div id="preview"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AI Social App. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const uploadForm = document.getElementById('uploadForm');
+        const messageDiv = document.getElementById('message');
+        const previewDiv = document.getElementById('preview');
+
+        uploadForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(uploadForm);
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    messageDiv.innerHTML = '<span style="color:green;">Image uploaded successfully!</span>';
+                    previewDiv.innerHTML = `<img src="${result.imageUrl}" alt="Uploaded Image" style="max-width: 300px; margin-top: 10px;">`;
+                } else {
+                    messageDiv.innerHTML = '<span style="color:red;">Upload failed: ' + result.error + '</span>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                messageDiv.innerHTML = '<span style="color:red;">An error occurred while uploading.</span>';
+            }
+        });
+    </script>
+</body>
+</html>
